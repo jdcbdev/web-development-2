@@ -1,9 +1,10 @@
 <?php
 
 require_once "../classes/product.php";
+$productObj = new Product();
 
-$product = [];
-$errors = [];
+$product = ["name"=>"", "category"=>"", "price"=>""];
+$errors = ["name"=>"", "category"=>"", "price"=>""];
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $product["name"] = trim(htmlspecialchars($_POST["name"]));
@@ -25,7 +26,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty(array_filter($errors))){
-        $productObj = new Product();
         $productObj->name = $product["name"];
         $productObj->category = $product["category"];
         $productObj->price = $product["price"];
@@ -57,18 +57,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <label>Fields with <span>*</span> are required</label>
     <form action="" method="post">
         <label for="name">Product Name <span>*</span></label>
-        <input type="text" name="name" id="name" value="<?php if(isset($product["name"])) { echo $product["name"]; } ?>">
-        <p class="error"><?php if(isset($errors["name"])) { echo $errors["name"]; } ?></p>
+        <input type="text" name="name" id="name" value="<?= $product["name"] ?>">
+        <p class="error"><?= $errors["name"] ?></p>
         <label for="category">Category <span>*</span></label>
         <select name="category" id="category">
             <option value="">--Select--</option>
-            <option value="Home Appliance" <?= (isset($product["category"]) && $product["category"] == "Home Appliance")? "selected":"" ?>>Home Appliance</option>
-            <option value="Gadget" <?= (isset($product["category"]) && $product["category"] == "Gadget")? "selected":"" ?>>Gadget</option>
+            <option value="Home Appliance" <?= ($product["category"] == "Home Appliance")? "selected":"" ?>>Home Appliance</option>
+            <option value="Gadget" <?= ($product["category"] == "Gadget")? "selected":"" ?>>Gadget</option>
         </select>
-        <p class="error"><?php if(isset($errors["category"])) { echo $errors["category"]; } ?></p>
+        <p class="error"><?= $errors["category"] ?></p>
         <label for="price">Price <span>*</span></label>
-        <input type="text" name="price" id="price" value="<?php if(isset($product["price"])) { echo $product["price"]; } ?>">
-        <p class="error"><?php if(isset($errors["price"])) { echo $errors["price"]; } ?></p>
+        <input type="text" name="price" id="price" value="<?= $product["price"] ?>">
+        <p class="error"><?= $errors["price"] ?></p>
         <br><br>
         <input type="submit" value="Save Product">
     </form>

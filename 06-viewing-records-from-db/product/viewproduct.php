@@ -1,7 +1,6 @@
 <?php
 
 require_once "../classes/product.php";
-
 $productObj = new Product();
 
 ?>

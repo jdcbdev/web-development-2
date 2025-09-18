@@ -1,6 +1,7 @@
 <?php
 
 require_once "../classes/product.php";
+$productObj = new Product();
 
 $product = ["name"=>"", "category"=>"", "price"=>""];
 $errors = ["name"=>"", "category"=>"", "price"=>""];
@@ -25,7 +26,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty(array_filter($errors))){
-        $productObj = new Product();
         $productObj->name = $product["name"];
         $productObj->category = $product["category"];
         $productObj->price = $product["price"];
