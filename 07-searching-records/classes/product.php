@@ -27,10 +27,11 @@ class Product extends Database{
     }
 
     // View all products (returns an array of rows)
-    public function viewProducts($search="") {
-        $sql = "SELECT * FROM product WHERE name LIKE CONCAT('%', :search, '%') ORDER BY name ASC";
+    public function viewProducts($search="", $category="") {
+        $sql = "SELECT * FROM product WHERE name LIKE CONCAT('%', :search, '%') AND category LIKE CONCAT('%', :category, '%') ORDER BY name ASC";
         $query = $this->connect()->prepare($sql);
         $query->bindParam(":search", $search);
+         $query->bindParam(":category", $category);
         
         if ($query->execute()) {
             return $query->fetchAll(); // fetch as associative array

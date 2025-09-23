@@ -3,10 +3,11 @@
 require_once "../classes/product.php";
 $productObj = new Product();
 
-$search = "";
+$search = $category = "";
 
 if($_SERVER["REQUEST_METHOD"] == "GET"){
     $search = isset($_GET["search"])? trim(htmlspecialchars($_GET["search"])) : "";
+    $category = isset($_GET["category"])? trim(htmlspecialchars($_GET["category"])) : "";
 }
 
 ?>
@@ -23,6 +24,11 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
     <form action="" method="get">
         <label for="">Search:</label>
         <input type="search" name="search" id="search" value="<?= $search ?>">
+        <select name="category" id="category">
+            <option value="">All</option>
+            <option value="Home Appliance" <?= (isset($category) && $category == "Home Appliance")? "selected":"" ?>>Home Appliance</option>
+            <option value="Gadget" <?= (isset($category) && $category == "Gadget")? "selected":"" ?>>Gadget</option>
+        </select>
         <input type="submit" value="Search">
     </form>
     <button><a href="addproduct.php">Add Product</a></button>
@@ -35,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
         </tr>
         <?php
         $no = 1;
-        foreach($productObj->viewProducts($search) as $product){
+        foreach($productObj->viewProducts($search, $category) as $product){
         ?>
         <tr>
             <td><?= $no++ ?></td>
