@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2025 at 07:07 AM
+-- Generation Time: Oct 27, 2025 at 01:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,28 @@ INSERT INTO `category` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `photo`
+--
+
+CREATE TABLE `photo` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `path` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `photo`
+--
+
+INSERT INTO `photo` (`id`, `product_id`, `path`, `created_at`, `updated_at`) VALUES
+(1, 13, 'uploads/product_68febea1112475.91022237.jpg', '2025-10-27 00:36:49', '2025-10-27 00:36:49'),
+(2, 11, 'uploads/product_68fec183315b04.87768755.webp', '2025-10-27 00:49:07', '2025-10-27 00:49:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -65,7 +87,8 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `name`, `category`, `price`, `created_at`, `updated_at`) VALUES
 (4, 'TV X01', 1, 120000.00, '2025-10-17 01:56:40', '2025-10-17 01:56:40'),
 (8, 'TV Devant', 2, 17900.00, '2025-10-17 01:56:40', '2025-10-17 01:56:40'),
-(11, 'Laptop', 1, 90800.00, '2025-10-17 01:56:40', '2025-10-17 01:56:40');
+(11, 'Laptop', 1, 90800.00, '2025-10-17 01:56:40', '2025-10-17 01:56:40'),
+(13, 'TV 11DY', 2, 15900.00, '2025-10-27 00:36:49', '2025-10-27 00:36:49');
 
 -- --------------------------------------------------------
 
@@ -104,6 +127,13 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `photo`
+--
+ALTER TABLE `photo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -129,10 +159,16 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -143,6 +179,12 @@ ALTER TABLE `staff`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `photo`
+--
+ALTER TABLE `photo`
+  ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Constraints for table `product`
